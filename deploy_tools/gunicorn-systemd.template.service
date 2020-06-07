@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn server for DOMAIN
+
+[Service]
+Restart=on-failure
+User=druid
+WorkingDirectory=/home/druid/sites/DOMAIN
+EnvironmentFile=/home/druid/sites/DOMAIN/.env
+
+ExecStart=/home/druid/sites/DOMAIN/virtualenv/bin/gunicorn \
+    --bind unix:/tmp/DOMAIN.socket \
+    superlists.wsgi:application
+
+
+[Install]
+WantedBy=multi-user.target
